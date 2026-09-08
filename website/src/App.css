@@ -186,7 +186,8 @@
 .diffusion-legend { position: absolute; top: 10px; right: 12px; z-index: 8; display: flex; gap: 12px; padding: 5px 8px; color: #746c77; background: rgba(255, 255, 255, .82); border: 1px solid rgba(216, 208, 218, .86); border-radius: 999px; font-size: 8px; font-weight: 650; backdrop-filter: blur(3px); }
 .diffusion-legend span { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
 .diffusion-legend i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
-.diffusion-legend .legend-source { background: #c53159; box-shadow: 0 0 0 3px rgba(197, 49, 89, .13); }
+.diffusion-legend .legend-normal { background: #fff; border: 1.5px solid #6b646f; }
+.diffusion-legend .legend-harmful { background: #b51f4a; box-shadow: 0 0 0 3px rgba(181, 31, 74, .14); }
 .diffusion-legend .legend-reached { background: #94688b; box-shadow: 0 0 0 3px rgba(148, 104, 139, .12); }
 .head-cloud,
 .infection-particles { position: absolute; inset: 12px 18px; }
@@ -202,15 +203,15 @@
 .agent-head-node.is-reached::before { animation: reached-ripple 1.65s ease-out var(--head-delay) infinite; }
 .agent-head-node.is-reached .agent-face-dot { background: #eee5ed; border-color: #94688b; box-shadow: 0 3px 9px rgba(115, 68, 107, .19); }
 .agent-head-node.is-reached .agent-face-dot i { background: #815477; }
-.agent-head-node.is-reached .agent-face-dot b { border-color: #815477; }
+.agent-head-node.is-reached .agent-face-dot b { bottom: 6px; height: 1px; background: #815477; border: 0; border-radius: 2px; }
 .agent-head-node.is-front .agent-face-dot { background: #f5dfe6; border-color: #b74c69; box-shadow: 0 0 0 4px rgba(183, 76, 105, .08), 0 4px 11px rgba(145, 48, 75, .18); }
-.agent-head-node.is-source { z-index: 6; }
-.agent-head-node.is-source::before { inset: -4px; border: 2px solid rgba(197, 49, 89, .48); opacity: 1; animation: source-ripple 1.3s ease-out infinite; }
-.agent-head-node.is-source .agent-face-dot { width: 25px; height: 25px; background: #c53159; border-color: #9f2648; box-shadow: 0 0 0 6px rgba(197, 49, 89, .1), 0 5px 13px rgba(132, 31, 60, .28); }
-.agent-head-node.is-source .agent-face-dot i { top: 8px; width: 3px; height: 2px; background: #fff; border-radius: 2px; transform: rotate(18deg); }
-.agent-head-node.is-source .agent-face-dot i:first-child { left: 5px; }
-.agent-head-node.is-source .agent-face-dot i:nth-child(2) { right: 5px; transform: rotate(-18deg); }
-.agent-head-node.is-source .agent-face-dot b { bottom: 5px; width: 8px; border-color: #fff; border-radius: 50% 50% 0 0; transform: translateX(-50%) rotate(180deg); }
+.agent-head-node.is-harmful { z-index: 6; }
+.agent-head-node.is-harmful::before { inset: -5px; border: 2px solid rgba(181, 31, 74, .58); box-shadow: 0 0 0 4px rgba(181, 31, 74, .08); opacity: 1; animation: source-ripple 1.18s ease-out infinite; }
+.agent-head-node.is-harmful .agent-face-dot { width: 27px; height: 27px; background: #b51f4a; border: 2px solid #841333; box-shadow: 0 0 0 7px rgba(181, 31, 74, .12), 0 6px 15px rgba(117, 21, 49, .34); }
+.agent-head-node.is-harmful .agent-face-dot i { top: 8px; width: 5px; height: 2px; background: #fff; border-radius: 2px; transform: rotate(22deg); }
+.agent-head-node.is-harmful .agent-face-dot i:first-child { left: 4px; }
+.agent-head-node.is-harmful .agent-face-dot i:nth-child(2) { right: 4px; transform: rotate(-22deg); }
+.agent-head-node.is-harmful .agent-face-dot b { bottom: 5px; width: 9px; height: 4px; background: none; border: 0; border-top: 2px solid #fff; border-radius: 50% 50% 0 0; transform: translateX(-50%); }
 @keyframes head-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
 @keyframes reached-ripple { 0% { opacity: .72; transform: scale(.62); } 82%, 100% { opacity: 0; transform: scale(1.45); } }
 @keyframes source-ripple { 0% { opacity: .8; transform: scale(.7); } 85%, 100% { opacity: 0; transform: scale(1.5); } }
@@ -642,7 +643,7 @@
   .infection-particles { inset: 8px 9px; }
   .agent-head-node { width: 24px; height: 24px; }
   .agent-face-dot { width: 18px; height: 18px; }
-  .agent-head-node.is-source .agent-face-dot { width: 23px; height: 23px; }
+  .agent-head-node.is-harmful .agent-face-dot { width: 25px; height: 25px; }
   .collapse-impact::before { width: 130px; height: 68px; }
   .collapse-impact strong { font-size: 17px; }
   .society-readout { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; font-size: 8px; }

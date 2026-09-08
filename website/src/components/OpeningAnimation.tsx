@@ -1,27 +1,30 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 
 const stages = [
-  { n: 100, alphaC: '4.7%', criticalCount: '≈5', visibleHeads: 18, reachedHeads: 3, particles: 3, spread: 24, label: 'A harmful signal appears', shortLabel: 'N = 100', reach: 'Local', state: 'stable' },
-  { n: 300, alphaC: '3.7%', criticalCount: '≈11', visibleHeads: 26, reachedHeads: 8, particles: 5, spread: 43, label: 'Nearby agents are exposed', shortLabel: 'N = 300', reach: 'Growing', state: 'stable' },
-  { n: 1000, alphaC: '3.0%', criticalCount: '≈30', visibleHeads: 35, reachedHeads: 18, particles: 8, spread: 67, label: 'Exposure spreads outward', shortLabel: 'N = 1,000', reach: 'Broad', state: 'warning' },
-  { n: 2000, alphaC: '2.2%', criticalCount: '≈44', visibleHeads: 44, reachedHeads: 34, particles: 10, spread: 104, label: 'The boundary is crossed', shortLabel: 'N = 2,000', reach: 'System-wide', state: 'collapse' },
+  { n: 100, alphaC: '4.7%', criticalCount: '≈5', visibleHeads: 26, reachedHeads: 4, harmfulHeads: 1, particles: 3, spread: 24, label: 'A harmful agent appears', shortLabel: 'N = 100', reach: 'Local', state: 'stable' },
+  { n: 300, alphaC: '3.7%', criticalCount: '≈11', visibleHeads: 40, reachedHeads: 12, harmfulHeads: 2, particles: 5, spread: 43, label: 'Harmful influence spreads', shortLabel: 'N = 300', reach: 'Growing', state: 'stable' },
+  { n: 1000, alphaC: '3.0%', criticalCount: '≈30', visibleHeads: 52, reachedHeads: 27, harmfulHeads: 3, particles: 8, spread: 67, label: 'More agents are affected', shortLabel: 'N = 1,000', reach: 'Broad', state: 'warning' },
+  { n: 2000, alphaC: '2.2%', criticalCount: '≈44', visibleHeads: 64, reachedHeads: 48, harmfulHeads: 4, particles: 10, spread: 104, label: 'The boundary is crossed', shortLabel: 'N = 2,000', reach: 'System-wide', state: 'collapse' },
 ] as const
 
 type Point = { x: number; y: number }
 
-const headPositions: Point[] = Array.from({ length: 44 }, (_, index) => {
+const headPositions: Point[] = Array.from({ length: 64 }, (_, index) => {
   if (index === 0) return { x: 50, y: 50 }
   const angle = index * 2.399963229728653
-  const radius = 7 + Math.sqrt(index / 43) * 42
+  const radius = 7 + Math.sqrt(index / 63) * 43
   return {
     x: 50 + Math.cos(angle) * radius,
     y: 50 + Math.sin(angle) * radius * 0.68,
   }
 })
 
+const harmfulOrder = [0, 17, 38, 55]
+const harmfulPositions = new Set(harmfulOrder)
+
 const reachedOrder = headPositions
   .map((point, index) => ({ index, distance: Math.hypot(point.x - 50, (point.y - 50) / 0.68) }))
-  .filter(({ index }) => index !== 0)
+  .filter(({ index }) => !harmfulPositions.has(index))
   .sort((a, b) => a.distance - b.distance)
   .map(({ index }) => index)
 
@@ -62,7 +65,8 @@ export function OpeningAnimation() {
         >
           <div className="diffusion-field" aria-hidden="true">
             <div className="diffusion-legend">
-              <span><i className="legend-source" />Harmful source</span>
+              <span><i className="legend-normal" />Normal agent</span>
+              <span><i className="legend-harmful" />Harmful agent</span>
               <span><i className="legend-reached" />Reached agent</span>
             </div>
 
@@ -93,9 +97,10 @@ export function OpeningAnimation() {
             <div className="head-cloud">
               {headPositions.map((point, index) => {
                 const reachedRank = reachedOrder.indexOf(index)
-                const isSource = index === 0
-                const isVisible = index < stage.visibleHeads || isSource
-                const isReached = !isSource && isVisible && reachedRank >= 0 && reachedRank < stage.reachedHeads
+                const harmfulRank = harmfulOrder.indexOf(index)
+                const isHarmful = harmfulRank >= 0 && harmfulRank < stage.harmfulHeads
+                const isVisible = index < stage.visibleHeads || isHarmful
+                const isReached = !isHarmful && isVisible && reachedRank >= 0 && reachedRank < stage.reachedHeads
                 const isFront = isReached && reachedRank >= Math.max(0, stage.reachedHeads - 5)
                 const style = {
                   left: `${point.x}%`,
@@ -109,7 +114,7 @@ export function OpeningAnimation() {
 
                 return (
                   <span
-                    className={`agent-head-node${isVisible ? ' is-visible' : ''}${isReached ? ' is-reached' : ''}${isFront ? ' is-front' : ''}${isSource ? ' is-source' : ''}`}
+                    className={`agent-head-node${isVisible ? ' is-visible' : ''}${isReached ? ' is-reached' : ''}${isFront ? ' is-front' : ''}${isHarmful ? ' is-harmful' : ''}`}
                     key={index}
                     style={style}
                   >
