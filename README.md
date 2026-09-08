@@ -18,10 +18,10 @@
 </p>
 
 <p align="center">
-  <img src="website/public/readme-opening-animation.gif" width="900" alt="Conceptual animation of harmful information spreading through an agent society until collective collapse">
+  <img src="website/public/readme-opening-animation.gif" width="900" alt="Schematic animation of harmful influence spreading across a growing society">
 </p>
 
-<p align="center"><sub>A conceptual illustration of harmful information spreading through the society—not measured experimental data.</sub></p>
+<p align="center"><sub>The people-and-path network is schematic; the displayed society sizes and collapse-boundary values are measured results.</sub></p>
 
 > **Disclaimer** This study is conducted solely for AI safety research. All harmful-agent behaviors are simulated to understand and mitigate collective risks, not to enable real-world financial harm. The controlled scenarios do not constitute financial or investment advice.
 
