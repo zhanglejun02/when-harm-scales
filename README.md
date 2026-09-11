@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://zhanglejun02.github.io/when-harm-scales/">Project Page</a> ·
-  <a href="https://zhanglejun02.github.io/when-harm-scales/papers/when-harm-scales.pdf">Paper</a> ·
+  <a href="https://arxiv.org/html/2609.05591v1">Paper</a> ·
   <a href="#tutorial">Tutorial</a> ·
   <a href="#reproducing-the-paper-experiments">Experiments</a> ·
   <a href="#citation">Citation</a>

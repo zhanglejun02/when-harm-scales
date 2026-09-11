@@ -23,7 +23,7 @@ export const site = {
   ],
   authorAffiliations: ['1', '2,3', '2', '1', '1', '1,2'],
   links: {
-    paper: './papers/when-harm-scales.pdf',
+    paper: 'https://arxiv.org/html/2609.05591v1',
     code: 'https://github.com/SAIL-Research-Lab/WolfSociety',
   },
 }
